@@ -7,11 +7,14 @@ import cors from "cors";
 app.use(cors());
 import formidableMiddleware from "express-formidable";
 app.use(formidableMiddleware());
+import user from "./routes/user";
+app.use(user);
 
 import mongoose from "mongoose";
 mongoose.connect(`${process.env.MONGODB_URI}`, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useCreateIndex: true
 });
 
 app.all("*", (req, res) =>
