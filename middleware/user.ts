@@ -13,7 +13,8 @@ import User, { userModel } from "../models/User";
 enum QueryUserSelect {
   default = "",
   secure = "-salt -hash -__v",
-  authentication = "salt hash"
+  authentication = "salt hash",
+  offer = "account _id -__v"
 }
 
 export const checkCreateUserDatas = async (

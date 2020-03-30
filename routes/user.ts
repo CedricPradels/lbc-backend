@@ -1,5 +1,5 @@
-import express, { Request, Response } from "express";
-const router = express.Router();
+import { Router } from "express";
+const router = Router();
 
 import { createUser, checkCreateUserDatas, login } from "../middleware/user";
 

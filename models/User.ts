@@ -11,7 +11,7 @@ export interface userModel {
   };
 }
 
-const model = new mongoose.Schema({
+const schema = new mongoose.Schema({
   email: { type: String, unique: true },
   token: String,
   hash: String,
@@ -22,6 +22,6 @@ const model = new mongoose.Schema({
   }
 });
 
-const User = mongoose.model("User", model);
+const User = mongoose.model("User", schema);
 
 export default User;
