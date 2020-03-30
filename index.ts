@@ -9,6 +9,8 @@ import formidableMiddleware from "express-formidable";
 app.use(formidableMiddleware());
 import user from "./routes/user";
 app.use(user);
+import offer from "./routes/offer";
+app.use(offer);
 
 import mongoose from "mongoose";
 mongoose.connect(`${process.env.MONGODB_URI}`, {

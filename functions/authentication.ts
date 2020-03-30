@@ -1,6 +1,7 @@
 import randomstring from "randomstring";
 import { SHA256 } from "crypto-js";
 import encBase64 from "crypto-js/enc-base64";
+import { Request } from "express";
 
 interface authenticationDatas {
   hash: string;
@@ -29,3 +30,6 @@ export const checkPassword = (salt: string) => (hash: string) => (
   console.log("USer ", hash);
   return createHash(salt)(password) === hash;
 };
+
+export const getTokenFromRequest = (req: Request): string | undefined =>
+  req.headers.authorization?.replace("Bearer ", "");

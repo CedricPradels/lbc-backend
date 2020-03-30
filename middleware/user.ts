@@ -10,11 +10,11 @@ import {
 } from "../functions/authentication";
 import User, { userModel } from "../models/User";
 
-enum QueryUserSelect {
+export enum QueryUserSelect {
   default = "",
   secure = "-salt -hash -__v",
   authentication = "salt hash",
-  offer = "account _id -__v"
+  offer = "account _id"
 }
 
 export const checkCreateUserDatas = async (
