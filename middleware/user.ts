@@ -1,15 +1,21 @@
+// EXPRESS
+import { NextFunction, Response, Request } from "express";
+
+// FUNCTIONS
 import {
   isEmail,
   isFilled,
   isKeyValueFreeInCollection
 } from "../functions/checks";
-import { NextFunction, Response } from "express";
 import {
   createAuthenticationDatas,
   checkPassword
 } from "../functions/authentication";
-import User, { userModel } from "../models/User";
 
+// MONGOOSE
+import User from "../models/User";
+
+// TYPESCRIPT
 export enum QueryUserSelect {
   default = "",
   secure = "-salt -hash -__v",
@@ -18,12 +24,16 @@ export enum QueryUserSelect {
 }
 
 export const checkCreateUserDatas = async (
-  req: any,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const { username, email } = req.fields;
+  const { username, email } = (req.fields as unknown) as {
+    username: string;
+    email: string;
+  };
   const isEmailValueFreeInUser = isKeyValueFreeInCollection(User)("email");
+  // CHECK ERRORS CASES ...
   if (!isFilled(username)) {
     res.status(400).json({ error: "User name is empty" });
   } else if (!isEmail(email)) {
@@ -31,15 +41,25 @@ export const checkCreateUserDatas = async (
   } else if (!(await isEmailValueFreeInUser(email))) {
     res.status(400).json({ error: "Email already exist in DB." });
   } else {
+    // ... OR NEXT IF YOU HASN'T ERROR
     next();
   }
 };
 
-export const createUser = async (req: any, res: Response) => {
+export const createUser = async (req: Request, res: Response) => {
   try {
-    const { password, username, phone, email } = req.fields;
+    const { password, username, phone, email } = (req.fields as unknown) as {
+      password: string;
+      username: string;
+      phone: string;
+      email: string;
+    };
+
+    // GET AUTHENTICATIONS DATAS FROM PASSWORD
     const { token, hash, salt } = createAuthenticationDatas(password);
-    const newUser = await new User({
+
+    // CREATE NEW USER
+    const newUser = await User.create({
       email,
       token,
       hash,
@@ -48,8 +68,9 @@ export const createUser = async (req: any, res: Response) => {
         username,
         phone
       }
-    }).save();
+    });
 
+    // QUERY CREATED USER AND SELECT FIELDS
     const user = await User.findById(newUser._id).select(
       QueryUserSelect.secure
     );
@@ -64,10 +85,13 @@ export const createUser = async (req: any, res: Response) => {
 export const login = async (req: any, res: Response) => {
   try {
     const { email, password } = req.fields;
+
+    // GET AUTHENTICATIONS DATAS
     const authenticationDatas: any = await User.findOne({ email }).select(
       QueryUserSelect.authentication
     );
 
+    // CHECK PASSWORD
     if (
       !checkPassword(authenticationDatas.salt)(authenticationDatas.hash)(
         password

@@ -9,10 +9,10 @@ export const isAuthenticated = async (
 ) => {
   try {
     const token = getTokenFromRequest(req);
-    const user: any = await User.findOne({ token }).select("token");
+    const userCount: number = await User.countDocuments({ token });
     if (token === undefined) {
       res.status(400).json({ error: "Missing token" });
-    } else if (!user) {
+    } else if (userCount === 0) {
       res.status(400).json({ error: "Wrong token" });
     } else {
       next();
