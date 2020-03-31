@@ -20,6 +20,16 @@
 }
 ```
 
+**Headers**
+
+```javascript
+{
+  headers: {
+    Authorization: `Bearer ${token}`;
+  }
+}
+```
+
 ## Response
 
 **Code:** 200 <br />
