@@ -10,6 +10,13 @@ Create users account, login, post offers, read offers...
 
 ## HOW TO USE
 
+```bash
+echo "MONGODB_URI=mongodb://localhost:27017/lbc" >> .env
+echo "PORT=4000" >> .env
+yarn
+yarn dev
+```
+
 ## DOCUMENTATION
 
 - Users
