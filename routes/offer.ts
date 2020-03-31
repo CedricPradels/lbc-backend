@@ -2,7 +2,12 @@ import { Router } from "express";
 const router = Router();
 
 import { isAuthenticated } from "../middleware/isAuthenticated";
-import { createOffer, checkPublishOfferDatas } from "../middleware/offer";
+import {
+  createOffer,
+  checkPublishOfferDatas,
+  getOffers,
+  getOffer
+} from "../middleware/offer";
 
 router.post(
   "/offer/publish",
@@ -10,5 +15,6 @@ router.post(
   checkPublishOfferDatas,
   createOffer
 );
-
+router.get("/offer/with-count", getOffers);
+router.get("/offer/:offerId", getOffer);
 export default router;
