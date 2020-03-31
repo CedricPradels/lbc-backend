@@ -1,6 +1,8 @@
+// DOTENV
 import dotenv from "dotenv";
 dotenv.config();
 
+// EXPRESS
 import express from "express";
 const app = express();
 import cors from "cors";
@@ -12,6 +14,7 @@ app.use(user);
 import offer from "./routes/offer";
 app.use(offer);
 
+// MONGOOSE
 import mongoose from "mongoose";
 mongoose.connect(`${process.env.MONGODB_URI}`, {
   useNewUrlParser: true,

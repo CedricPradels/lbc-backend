@@ -11,7 +11,7 @@ export const isKeyValueFreeInCollection = (model: Model<Document, {}>) => (
   key: string
 ) => async (val: string) => {
   try {
-    const result = await model.find({ [key]: val });
-    return result.length === 0;
+    const result = await model.countDocuments({ [key]: val });
+    return result === 0;
   } catch {}
 };

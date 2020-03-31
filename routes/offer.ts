@@ -1,6 +1,8 @@
+// EXPRESS
 import { Router } from "express";
 const router = Router();
 
+// MIDDLEWARES
 import { isAuthenticated } from "../middleware/isAuthenticated";
 import {
   createOffer,

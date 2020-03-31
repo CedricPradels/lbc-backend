@@ -26,8 +26,6 @@ export const createHash = (salt: string) => (password: string) =>
 export const checkPassword = (salt: string) => (hash: string) => (
   password: string
 ) => {
-  console.log("Password ", createHash(salt)(password));
-  console.log("USer ", hash);
   return createHash(salt)(password) === hash;
 };
 
