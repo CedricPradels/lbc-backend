@@ -4,7 +4,6 @@
   "main": "index.js",
   "author": "CedricPradels <cedric.pradels@gmail.com>",
   "license": "MIT",
-  "type": "module",
   "scripts": {
     "start": "ts-node index.ts",
     "dev": "npx nodemon index.ts"
